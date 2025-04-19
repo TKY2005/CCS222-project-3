@@ -1,4 +1,5 @@
 *.class
 *.pdf
 *.docx
+*.log
 buildFiles/

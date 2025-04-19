@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.logging.*;
+
 public class Fuel3{
     public String carType;
     float startDistance;
@@ -25,12 +28,34 @@ public class Fuel3{
 
     private FuelConsumptionStarategy readingMode;
 
+    private Logger logger;
+    private FileHandler file;
+    private SimpleFormatter format;
+
+
     public Fuel3(String carType, float startDistance, float endDistance, float fuelUsed, float pricePerUnit){
         this.carType = carType;
         this.startDistance = startDistance;
         this.endDistance = endDistance;
         this.fuelUsed = fuelUsed;
         this.pricePerUnit = pricePerUnit;
+        setUpLogger();
+    }
+
+    private void setUpLogger(){
+        try {
+            logger = Logger.getLogger(Fuel3.class.getName());
+            logger.setUseParentHandlers(false);
+            
+            file = new FileHandler("222Proj.log");
+            format = new SimpleFormatter();
+
+            file.setFormatter(format);
+            logger.addHandler(file);
+
+        } catch (IOException e) {
+            System.out.println("Error trying to create or write to the file.");
+        }
     }
 
     public float calcDistance(float startDistance, float endDistance){
@@ -90,5 +115,8 @@ public class Fuel3{
                 info[7], String.format("%.1f", fuelConsumption[0]) + " " + distanceUnit,
                 info[8], String.format("%.5f",fuelConsumption[1]) + " " + fuelUnit);
         System.out.println(infoDisplay);
+
+
+        logger.info(infoDisplay);
     }
 }

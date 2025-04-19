@@ -17,6 +17,7 @@ public class Interface {
         System.out.println("""
                 1- Enter new car Data.
                 2- Display all cars.
+                press anything else to exit
                 """);
         System.out.print("Enter your choice : "); choice = in.nextInt();
 
